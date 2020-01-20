@@ -1,0 +1,15 @@
+target
+*.iml
+*.jar
+*.class
+.idea
+.project
+.classpath
+.settings/
+.DS_Store
+.checkstyle
+*.orig
+.java-version
+*.so
+*.dylib
+*.dll
