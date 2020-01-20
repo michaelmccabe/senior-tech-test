@@ -25,34 +25,35 @@ To get the admin's bearer token, call the _authenticate_ endpoint:
 
 `curl -X POST -H "Content-Type: application/json" -d "@json/admin.json" http://localhost:8080/authenticate`
 
-`{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU3ODg3MjE1NywiaWF0IjoxNTc4NzY0MTU3fQ.099BslnXJP_oe7nJm8X-OMIvBCBclGnQlMOTmopgyHyDFiEb1sLdTS5QD7JpWQf3HkkC4s01brrI0jqtUiItUQ"}`
+RESPONSE: `{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU3ODg3MjE1NywiaWF0IjoxNTc4NzY0MTU3fQ.099BslnXJP_oe7nJm8X-OMIvBCBclGnQlMOTmopgyHyDFiEb1sLdTS5QD7JpWQf3HkkC4s01brrI0jqtUiItUQ"}`
 
 To register a teacher, call the _register_ endpoint.
 
 `curl -X POST -H "Content-Type: application/json" -d "@json/teacher.json" http://localhost:8080/register`
 
-`registered user: teacher`
-
+RESPONSE: `registered user: teacher`
 
 To get the teacher's bearer token, call the _authenticate_ endpoint. Then view all accounts using that token on the _accounts_ endpoint.
 
 `curl -X GET --header 'authorization: Bearer <BEARER_TOKEN>'  http://localhost:8080/accounts`
 
-`[{"username":"admin","password":"$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6","details":null,"type":"ADMIN"},{"username":"teacher","password":"$2a$10$RwjTmFj26fiOriLXM1gHf.enHAgD8NdfzdQ9vsAqSzRBROQCA24bm","details":"science teacher","type":"TEACHER"}]
+RESPONSE: `[{"username":"admin","password":"$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6","details":null,"type":"ADMIN"},{"username":"teacher","password":"$2a$10$RwjTmFj26fiOriLXM1gHf.enHAgD8NdfzdQ9vsAqSzRBROQCA24bm","details":"science teacher","type":"TEACHER"}]
 `
 
 To do the same for a student, call the _register_ and  _authenticate_ endpoints:
 `curl -X POST -H "Content-Type: application/json" -d "@json/student.json" http://localhost:8080/register`
   
-`registered user: student`
+RESPONSE: `registered user: student`
 
 `curl -X POST -H "Content-Type: application/json" -d "@json/student.json" http://localhost:8080/authenticate`
 
 Then view the student's details:
-`curl -X GET --header 'authorization: Bearer <BEARER_TOKEN>'  http://localhost:8080/accounts/student
-{"username":"student","password":"$2a$10$2FYz8HLeEocLC2L3LJxSMOmPT7/506m3uRhaTL.uruaeiPSTwBimm","details":"science student","type":"STUDENT"}
+`curl -X GET --header 'authorization: Bearer <BEARER_TOKEN>'  http://localhost:8080/accounts/student`
+
+RESPONSE: `{"username":"student","password":"$2a$10$2FYz8HLeEocLC2L3LJxSMOmPT7/506m3uRhaTL.uruaeiPSTwBimm","details":"science student","type":"STUDENT"}
 `
 
 And to prove that this student cannot view any other's details:
-`$ curl -X GET --header 'authorization: Bearer <BEARER_TOKEN>'  http://localhost:8080/accounts/notstudent
-{"timestamp":"2020-01-11T17:38:25.207+0000","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/accounts/notstudent"}`
+`$ curl -X GET --header 'authorization: Bearer <BEARER_TOKEN>'  http://localhost:8080/accounts/notstudent`
+
+RESPONSE: `{"timestamp":"2020-01-11T17:38:25.207+0000","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/accounts/notstudent"}`
